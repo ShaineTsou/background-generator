@@ -17164,10 +17164,6 @@
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],2:[function(require,module,exports){
-// If we don't want to use Node.js and assume that we were in the age that there's no webpack and ES6, one way for us to use one of the functions of lodash is to use browserify.
-// So go to the terminal and use npm to install the global package of browserify. Then we can say 'browserify script.js > bundle.js' to bundle multiple script files into another script file that we can use in the browser.
-// Then we just go to the html file, and instead of the script.js file, we do bundle.js
-
 var _ = require('lodash');
 console.log(_);
 
