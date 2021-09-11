@@ -1,21 +1,71 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title>Gradient Background Generator</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body id="bodyBg">
-	<h1>Background Generator</h1>
-	<input class="color1" type="color" name="color1" value="#f2ff38"></body>
-	<input class="color2" type="color" name="color2" value="#55abf2"></body>
-	
-	<h2>Current CSS Background</h2>
-	<h3></h3>
-
-	<div>
-		<button id="rndPicker" class="button-three">Pick For Me</button>
-	</div>
-	<h4>Made by Shaine Tsou</h4>
-	<script type="text/javascript" src="bundle.js"></script>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Background Generator</title>
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./assets/icons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/icons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./assets/icons/favicon-16x16.png"
+    />
+    <link rel="manifest" href="./assets/icons/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="./assets/icons/safari-pinned-tab.svg"
+      color="#ffae00"
+    />
+    <link rel="shortcut icon" href="./assets/icons/favicon.ico" />
+    <meta name="msapplication-TileColor" content="#fffbf0" />
+    <meta
+      name="msapplication-config"
+      content="/assets/icons/browserconfig.xml"
+    />
+    <meta name="theme-color" content="#fffbf0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body id="body">
+    <h1 class="title">Background Generator</h1>
+    <div class="color-input-container" id="color-input-container">
+      <label for="color1" class="color-input-label">Color1</label>
+      <input
+        type="color"
+        name="color1"
+        class="color-input"
+        id="color1"
+        value="#ffcb3d"
+      />
+      <label for="color2" class="color-input-label">Color2</label>
+      <input
+        type="color"
+        name="color2"
+        class="color-input"
+        id="color2"
+        value="#0840c4"
+      />
+    </div>
+    <div class="bg-code-container" id="bg-code-container">
+      <h2 class="subtitle">Current CSS Background</h2>
+      <code class="bg-code" id="bg-code"></code>
+      <span class="copied" id="copied">Copied!</span>
+    </div>
+    <script src="script.js"></script>
+  </body>
 </html>

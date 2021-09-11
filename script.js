@@ -1,64 +1,37 @@
-var _ = require('lodash');
-console.log(_);
+const body = document.querySelector("#body");
+const color1 = document.querySelector("#color1");
+const color2 = document.querySelector("#color2");
+const bgCodeContainer = document.querySelector("#bg-code-container");
+const bgCode = document.querySelector("#bg-code");
+const copied = document.querySelector("#copied");
 
-var array = [1,2,3,4,5,6,7,8];
-console.log('answer: ', _.without(array, 3));
+// Set initial background
+body.style.background = `linear-gradient(to right, ${color1.value}, ${color2.value})`;
 
+const changeBackground = function () {
+  // Display bgCodeContainer
+  if (bgCodeContainer.style.display === "none") {
+    x.style.display = "flex";
+  }
 
-var bodyBg = document.getElementById("bodyBg");
-var color1 = document.querySelector(".color1");
-var color2 = document.querySelector(".color2");
-var h3 = document.querySelector("h3");
+  bgCodeContainer.style.display = "flex";
+  body.style.background = `linear-gradient(to right, ${color1.value}, ${color2.value})`;
+  bgCode.textContent = `background: ${body.style.background}`;
 
-bodyBg.style.background = "linear-gradient(to right, " + color1.value + ", " + color2.value + ")";
-h3.textContent = bodyBg.style.background + ";";
+  // Hide copied
+  if (copied.style.display === "block") {
+    copied.style.display = "none";
+  }
+};
 
-function setGradient(){
-    bodyBg.style.background = "linear-gradient(to right, " + color1.value + ", " + color2.value + ")";
-    h3.textContent = bodyBg.style.background + ";";
+async function clipboardCopy() {
+  let text = bgCode.textContent;
+  await navigator.clipboard.writeText(text);
+
+  // Show copied
+  copied.style.display = "block";
 }
 
-color1.addEventListener("input", setGradient);
-color2.addEventListener("input", setGradient);
-
-
-// MDN Introduction to events - RANDOM COLOR PICKER //
-
-// https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events//
-
-var rndPickerBtn = document.getElementById("rndPicker");
-
-function random(number) {
-	return Math.floor(Math.random()*(number));
-}
-
-function pickRandomColor() {
-	var rndCol1 = "rgb(" + random(255) + ", " + random(255) + ", " + random(255) + ")";
-	var rndCol2 = "rgb(" + random(255) + ", " + random(255) + ", " + random(255) + ")";
-
-	bodyBg.style.background = "linear-gradient(to right, " + rndCol1 + ", " + rndCol2 + ")";
-    h3.textContent = bodyBg.style.background + ";";
-}
-
-
-rndPickerBtn.addEventListener("click", pickRandomColor);
-
-
-
-// I also want to make the color input 1 and color input 2 to change to the corresponding colors when I press the rndPickerBtn.
-
-// How to solve this problem?
-	
-	// What I have tried
-
-		// 1. Within the curly brackets of the pickRandomColor function, I typed 
-		
-		//		color1.value = rndCol1;
-		//		color2.value = rndCol2;
-
-		// it turned out that when I clicked the rndPickerBtn, both the value of the color input 1 and color input 2 became #000000.
-
-		// So it seemed that I need to turn the rndCol1 and rndCol2 which are RGB into Hex.
-
-			// RGB to hex and hex to RGB - StackOverflow
-			// https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
+color1.addEventListener("input", changeBackground);
+color2.addEventListener("input", changeBackground);
+bgCode.addEventListener("click", clipboardCopy);
