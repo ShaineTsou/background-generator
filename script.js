@@ -16,7 +16,7 @@ const changeBackground = function () {
 
   bgCodeContainer.style.display = "flex";
   body.style.background = `linear-gradient(to right, ${color1.value}, ${color2.value})`;
-  bgCode.textContent = `background: ${body.style.background}`;
+  bgCode.textContent = `background: ${body.style.background};`;
 
   // Hide copied
   if (copied.style.display === "block") {

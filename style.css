@@ -1,25 +1,28 @@
 :root {
   --main-title-color: rgb(241, 241, 241);
-  --sub-title-color: rgb(192, 192, 192);
+  --sub-title-color: rgb(204, 204, 204);
   --color-input-label-color: whitesmoke;
-  --copied-border-color: rgb(248, 153, 74);
-  --copied-text-color: rgb(187, 0, 0);
-  --copied-bg-color: whitesmoke;
-  --copied-hover-bg: rgb(248, 153, 74);
-  --copied-hover-text: whitesmoke;
+  --copied-text-color: rgb(248, 153, 74);
 }
 
 html {
   box-sizing: border-box;
-  background-color: rgb(224, 224, 224);
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 body {
-  margin: 0;
   min-height: 100vh;
   text-align: center;
   font-family: "Georgia", cursive;
-  padding-top: 60px;
+  padding: 60px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .title {
@@ -27,31 +30,39 @@ body {
   letter-spacing: 5px;
   text-transform: uppercase;
   font-size: 2.5rem;
+  text-shadow: 4px 4px black;
 }
 
 .color-input-container {
-  width: 30%;
-  margin: 50px auto;
+  width: 50%;
+  margin: 20px 0;
+  display: flex;
   justify-content: center;
 }
 
 .color-input-container .color-input-label {
-  margin-left: 10px;
+  margin: 15px;
   color: var(--color-input-label-color);
   letter-spacing: 1px;
   font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 2px 2px black;
 }
 
 .color-input-container .color-input {
   width: 32px;
   height: 32px;
   border: none;
-  margin-right: 10px;
+  margin: 10px;
   cursor: pointer;
+  box-shadow: 2px 2px black;
 }
 
 .bg-code-container {
-  padding: 20px;
+  width: 100%;
   display: none;
   flex-direction: column;
   justify-content: center;
@@ -62,29 +73,50 @@ body {
   color: var(--sub-title-color);
   letter-spacing: 3px;
   text-transform: uppercase;
-  margin-bottom: 30px;
   font-size: 1.75rem;
+  text-shadow: 2px 2px black;
 }
 
 .bg-code-container .bg-code {
-  width: 60vw;
+  margin: 20px auto;
+  max-width: 80%;
+  overflow-x: auto;
   white-space: nowrap;
-  overflow: auto;
-  margin: 0 auto;
-  padding: 20px;
-  border-radius: 15px;
+  padding: 35px 20px;
+  border-radius: 20px;
+  border: 1px solid whitesmoke;
   background-color: black;
   color: whitesmoke;
   line-height: 0px;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   cursor: pointer;
 }
 
 .bg-code-container .copied {
   display: none;
-  margin-top: 5px;
   color: var(--copied-text-color);
   font-weight: 600;
   font-size: 1rem;
   letter-spacing: 1px;
+  text-shadow: 2px 2px rgb(49, 49, 49);
+}
+
+@media screen and (max-width: 480px) {
+  .title {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    text-shadow: 3px 3px black;
+  }
+
+  .bg-code-container .subtitle {
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+    text-shadow: 2px 2px black;
+  }
+
+  .bg-code-container .bg-code {
+    margin: 10px auto;
+    padding: 25px 15px;
+    font-size: 0.9rem;
+  }
 }
