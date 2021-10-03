@@ -1,6 +1,6 @@
 # Background Generator
 
-A web app which generates CSS code of customized or random CSS gradient background
+A web app which generates CSS code for customized or random CSS gradient background
 
 ## Language
 - JavaScript
