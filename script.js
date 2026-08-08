@@ -1,68 +1,80 @@
-const body = document.querySelector("#body");
-const color1 = document.querySelector("#color1");
-const color2 = document.querySelector("#color2");
-const direction = document.querySelector("#direction");
-const randomBtn = document.querySelector("#random-btn");
-const bgCodeContainer = document.querySelector("#bg-code-container");
-const bgCode = document.querySelector("#bg-code");
-const copied = document.querySelector("#copied");
+const colorPicker1 = document.querySelector("#color-picker-1");
+const colorPicker2 = document.querySelector("#color-picker-2");
+const directionSelector = document.querySelector("#gradient-direction-menu");
+const colorCodeBox = document.querySelector(".color-code-box");
+const colorCode = document.querySelector("#color-code");
+const ctaInfo = document.querySelector("#cta-info");
+const randomPicker = document.querySelector("#random-picker");
 
-// Set initial background
-body.style.background = `linear-gradient(to ${direction.value}, ${color1.value}, ${color2.value})`;
+const ctaCopyToClipboard = "Click to copy to your clipboard!";
+const ctaCopied = "Copied!";
+const directionList = ["top", "right", "bottom", "left"];
 
-const changeBackground = function () {
-  // Display bgCodeContainer
-  if (bgCodeContainer.style.display === "none") {
-    x.style.display = "flex";
-  }
-
-  bgCodeContainer.style.display = "flex";
-  body.style.background = `linear-gradient(to ${direction.value}, ${color1.value}, ${color2.value})`;
-  bgCode.textContent = `background: ${body.style.background};`;
-
-  // Hide copied
-  if (copied.style.display === "block") {
-    copied.style.display = "none";
-  }
+const setColorCode = (backgroundStyle) => {
+    if (typeof backgroundStyle === 'string' && backgroundStyle.length > 0) {
+        colorCode.textContent = `background-image: ${backgroundStyle}`;
+    }
 };
 
-// Pick random background
-const getRandomBgDirection = function () {
-  const directions = ["top", "right", "bottom", "left"];
-  const randomIndex = Math.floor(Math.random() * 4);
+const setBackgroundImage = () => {
+    if (typeof colorPicker1.value !== "string" ||
+        typeof colorPicker2.value !== "string" ||
+        typeof directionSelector.value !== "string"
+    ) {
+        return null;
+    }
 
-  return directions[randomIndex];
+    const color1 = colorPicker1.value.toUpperCase() || "red";
+    const color2 = colorPicker2.value.toUpperCase() || "yellow";
+    const direction = directionSelector.value.toLowerCase() || "right";
+
+    const backgroundStyle = `linear-gradient(to ${direction}, ${color1}, ${color2})`;
+    document.body.style.backgroundImage = backgroundStyle;
+    setColorCode(backgroundStyle);
+
+    ctaInfo.textContent = ctaCopyToClipboard;
 };
 
-const getRandomHexColor = function () {
-  const hexColorArr = [];
+const convertNumToHex = (num) => {
+    if (!num || typeof num !== "number") return null;
 
-  for (let i = 0; i < 3; i++) {
-    const randomHex = Math.floor(Math.random() * 256).toString(16);
-    const hexColor = randomHex.length === 1 ? `0${randomHex}` : randomHex;
-    hexColorArr.push(hexColor);
-  }
-
-  return `#${hexColorArr.join("")}`;
+    let hex = num.toString(16);
+    return hex.length === 1 ? "0" + hex : hex;
 };
 
-const getRandomBackground = function () {
-  color1.value = getRandomHexColor();
-  color2.value = getRandomHexColor();
-  direction.value = getRandomBgDirection();
-  changeBackground();
+const getRandomInt = (maxNum) => {
+    if (!maxNum || typeof maxNum !== "number") return null;
+
+    return Math.floor(Math.random() * maxNum);
 };
 
-async function clipboardCopy() {
-  let text = bgCode.textContent;
-  await navigator.clipboard.writeText(text);
+const getRandomColorHex = () => {
+    const rHex = convertNumToHex(getRandomInt(256));
+    const gHex = convertNumToHex(getRandomInt(256));
+    const bHex = convertNumToHex(getRandomInt(256));
 
-  // Show copied
-  copied.style.display = "block";
-}
+    return `#${rHex}${gHex}${bHex}`;
+};
 
-color1.addEventListener("input", changeBackground);
-color2.addEventListener("input", changeBackground);
-direction.addEventListener("input", changeBackground);
-bgCode.addEventListener("click", clipboardCopy);
-randomBtn.addEventListener("click", getRandomBackground);
+const getRandomDirection = () => {
+    const index = getRandomInt(4);
+    return directionList[index];
+};
+
+const pickRandomBackgroundImage = () => {
+    colorPicker1.value = getRandomColorHex();
+    colorPicker2.value = getRandomColorHex();
+    directionSelector.value = getRandomDirection();
+    setBackgroundImage();
+};
+
+const copyToClipboard = () => {
+    navigator.clipboard.writeText(colorCode.innerText);
+    ctaInfo.textContent = ctaCopied;
+};
+
+colorPicker1.addEventListener("input", setBackgroundImage);
+colorPicker2.addEventListener("input", setBackgroundImage);
+directionSelector.addEventListener("input", setBackgroundImage);
+colorCodeBox.addEventListener("click", copyToClipboard);
+randomPicker.addEventListener("click", pickRandomBackgroundImage);
